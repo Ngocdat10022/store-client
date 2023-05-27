@@ -1,4 +1,11 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
+#!/bin/sh
 
-npm test
+commit_msg=$(cat $1)
+
+pattern="^feat: .*"
+
+if ! echo "$commit_msg" | grep -iqE "$pattern"; then
+  echo "Lỗi: Commit message không tuân thủ quy tắc!"
+  echo "Vui lòng sử dụng mẫu commit message: 'feat: mô tả commit'"
+  exit 1
+fi
