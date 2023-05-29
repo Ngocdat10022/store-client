@@ -11,6 +11,8 @@
     "husky-install": "husky install"
   },
   "dependencies": {
+    "@tippyjs/react": "^4.2.6",
+    "axios": "^1.4.0",
     "i18next": "^22.5.0",
     "node-sass": "^9.0.0",
     "react": "^18.2.0",
