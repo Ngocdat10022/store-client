@@ -1,3 +1,10 @@
-export const test = () => {
-  return "";
-};
+export const {
+  VITE_APP_API_KEY,
+  VITE_APP_AUTHDOMAIN,
+  VITE_APP_PROJECTID,
+  VITE_APP_STORAGEBUCKET,
+  VITE_APP_MESSAGINGSENDERID,
+  VITE_APP_APPID,
+  VITE_APP_MEASUREMENTID,
+  VITE_APP_ACCESSTOKEN_KEY,
+} = import.meta.env;
