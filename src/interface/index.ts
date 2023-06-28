@@ -1,3 +1,2 @@
-export const test = () => {
-  return "";
-};
+export * from "./authContext.interface";
+export * from "./user.interface";

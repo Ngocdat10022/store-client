@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.react-tel-input .form-control {
+  @apply w-[100%] py-6;
+}
+.otp-input input {
+  //   background: #ccc;
+  outline: none;
+  border-bottom: 1px solid #ccc;
+}
