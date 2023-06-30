@@ -35,6 +35,8 @@ const initalAuthContext = {
   otp: "",
   setOtp: () => null,
   verifyOtp: () => null,
+  showComfirmPass: false,
+  setShowComfirmPass: () => null,
 };
 const authContext = createContext<IAuthContext>(initalAuthContext);
 declare global {
@@ -53,6 +55,10 @@ const AuthContextProvider = ({ children }: IPropsAuthContextProvider) => {
 
   const [loading, setLoading] = useState<boolean>(initalAuthContext.loading);
   const [showOtp, setShowOtp] = useState<boolean>(initalAuthContext.showOtp);
+  const [showComfirmPass, setShowComfirmPass] = useState<boolean>(
+    initalAuthContext.showComfirmPass
+  );
+
   const [phoneNumber, setPhoneNumber] = useState<string>(
     initalAuthContext.phoneNumber
   );
@@ -73,6 +79,7 @@ const AuthContextProvider = ({ children }: IPropsAuthContextProvider) => {
       console.log("error", error);
     }
   };
+
   // Handle login with Facebook
   const handleSignWithFacebook = async () => {
     try {
@@ -91,39 +98,36 @@ const AuthContextProvider = ({ children }: IPropsAuthContextProvider) => {
 
   //
   const onCapVerify = () => {
-    if (!window?.recaptchaVerifier) {
-      window.recaptchaVerifier = new RecaptchaVerifier(
-        "recaptcha-container",
-        {
-          size: "invisible",
-          callback: (response: any) => {
-            handleSignInWithNumberPhone();
-            console.log("response", response);
-          },
-          "expired-callback": () => {},
+    window.recaptchaVerifier = new RecaptchaVerifier(
+      "recaptcha-container",
+      {
+        callback: (response: any) => {
+          handleSignInWithNumberPhone();
         },
-        auth
-      );
-    }
+      },
+      auth
+    );
   };
 
   // Handle login with numberPhone
 
   const handleSignInWithNumberPhone = () => {
     try {
-      setLoading(true);
       onCapVerify();
+      setLoading(true);
       const appVerifier = window?.recaptchaVerifier;
-      signInWithPhoneNumber(auth, phoneNumber, appVerifier)
-        .then((confirmationResult) => {
-          console.log("login with number phone");
-          window.confirmationResult = confirmationResult;
-          setShowOtp(true);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.log("error", error);
-        });
+      console.log("prepared phone auth process");
+      if (appVerifier) {
+        signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+          .then((confirmationResult) => {
+            window.confirmationResult = confirmationResult;
+            setShowOtp(true);
+            setLoading(false);
+          })
+          .catch((error) => {
+            console.log("error", error);
+          });
+      }
     } catch (error) {
       console.log("error", error);
     }
@@ -136,12 +140,15 @@ const AuthContextProvider = ({ children }: IPropsAuthContextProvider) => {
       .then((result: any) => {
         const user = result.user;
         setUser(user);
-        // ...
+        setAccessToken(user?.accessToken);
+        setShowOtp(false);
+        setShowComfirmPass(true);
       })
       .catch((error: any) => {
         console.log("error", error);
       });
   };
+
   // Handle logout
   const handleLogout = async () => {
     await signOut(auth)
@@ -172,6 +179,8 @@ const AuthContextProvider = ({ children }: IPropsAuthContextProvider) => {
         setPhoneNumber,
         otp,
         setOtp,
+        showComfirmPass,
+        setShowComfirmPass,
         setUser,
         handleSignWithGoogle,
         handleLogout,
