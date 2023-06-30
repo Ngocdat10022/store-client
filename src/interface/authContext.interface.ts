@@ -12,6 +12,8 @@ export interface IAuthContext {
   otp: string;
   setShowOtp: React.Dispatch<React.SetStateAction<boolean>>;
   setOtp: React.Dispatch<React.SetStateAction<string>>;
+  showComfirmPass: boolean;
+  setShowComfirmPass: React.Dispatch<React.SetStateAction<boolean>>;
   handleSignWithGoogle: () => void;
   handleLogout: () => void;
   handleSignWithFacebook: () => void;

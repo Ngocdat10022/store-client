@@ -3,11 +3,17 @@ import FieldInput from "@/component/FieldInput";
 import MainLayoutAcc from "@/component/MainLayoutAcc";
 import { useAuthContext } from "@/context/authContext";
 import { useEffect } from "react";
+import PhoneInput from "react-phone-input-2";
 import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { handleSignWithGoogle, handleSignWithFacebook, accessToken } =
-    useAuthContext();
+  const {
+    handleSignWithGoogle,
+    handleSignWithFacebook,
+    accessToken,
+    phoneNumber,
+    setPhoneNumber,
+  } = useAuthContext();
   const navigate = useNavigate();
   useEffect(() => {
     if (accessToken) navigate("/");
@@ -16,12 +22,13 @@ const Login = () => {
     <MainLayoutAcc>
       <div className="bg-bgaccount  bg-no-repeat bg-cover h-[600px] pr-[300px]  flex justify-end items-center ">
         <form className="p-4 w-[400px] h-auto  bg-whiteColor">
+          <div id="recaptcha-container"></div>
           <h3 className="text-2xl text-center">Đăng Nhập</h3>
           <div className="flex flex-col justify-center w-full gap-8 my-10">
-            <FieldInput
-              type="text"
-              placeholder="Số điện thoại"
-              name="numberphone"
+            <PhoneInput
+              country={"in"}
+              value={phoneNumber}
+              onChange={setPhoneNumber}
             />
             <FieldInput
               type="password"
@@ -29,7 +36,7 @@ const Login = () => {
               name="password"
             />
           </div>
-          <Button type="submit" name="Đăng Nhập" className="w-[100%] " />
+          <Button type="button" name="Đăng Nhập" className="w-[100%] " />
           <div className="flex items-center justify-between w-[100%] mt-5 text-xs text-blueColor">
             <span className="cursor-pointer">Quên mật khẩu</span>
             <span className="cursor-pointer">Đăng nhập với SMS</span>

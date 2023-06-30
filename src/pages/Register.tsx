@@ -1,30 +1,33 @@
 import Button from "@/component/Button";
 import MainLayoutAcc from "@/component/MainLayoutAcc";
 import { useAuthContext } from "@/context/authContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import OtpInput from "otp-input-react";
 import ArrowLeft from "@/assets/Icons/ArrowLeft";
+import FieldInput from "@/component/FieldInput";
 
 const Register = () => {
   ///state
+
+  const [pass, setPass] = useState<string>("");
   const {
     handleSignWithGoogle,
     handleSignWithFacebook,
     setPhoneNumber,
     phoneNumber,
-    accessToken,
     showOtp,
     setShowOtp,
+    accessToken,
+    showComfirmPass,
     otp,
     loading,
     setOtp,
     handleSignInWithNumberPhone,
     verifyOtp,
   } = useAuthContext();
-  console.log("phoneNumber", phoneNumber);
   const navigate = useNavigate();
   useEffect(() => {
     if (accessToken) navigate("/");
@@ -76,9 +79,37 @@ const Register = () => {
               ></Button>
             </div>
           </div>
+        ) : showComfirmPass ? (
+          <div className="show-comfirm-password bg-whiteColor flex items-center justify-center w-[100%] h-[800px]">
+            <div className="form-otp max-w-[500px] h-[600px] flex items-center flex-col shadow-xl rounded-md px-20 py-6 relative">
+              <span className="absolute cursor-pointer left-5 top-5 text-mainColor">
+                <ArrowLeft />
+              </span>
+              <h3 className="text-xl font-normal ">Tạo mật khẩu</h3>
+              <div className="py-16">
+                <FieldInput
+                  name="password"
+                  placeholder="Nhập mật khẩu"
+                  type="password"
+                  value={pass}
+                  onChange={(e) => {
+                    setPass(e.target.value);
+                  }}
+                />
+              </div>
+
+              <Button
+                className="bg-mainColor w-[100%]"
+                name="Xác nhận"
+                type="button"
+                isbtnSocial={false}
+              ></Button>
+            </div>
+          </div>
         ) : (
           <div className="bg-bgaccount bg-no-repeat bg-cover w-[100%] h-[600px] pr-[300px]  flex justify-end items-center ">
             <form className="p-4 w-[400px] h-auto  bg-whiteColor">
+              <div id="recaptcha-container"></div>
               <h3 className="text-2xl text-center">Đăng Kí</h3>
               <div className="flex flex-col justify-center w-full gap-8 my-10">
                 <PhoneInput
@@ -88,7 +119,7 @@ const Register = () => {
                 />
               </div>
               <Button
-                type="submit"
+                type="button"
                 name={`${loading ? "Loading..." : "Đăng Kí"}`}
                 className="w-[100%] "
                 onClick={handleSignInWithNumberPhone}
@@ -108,7 +139,7 @@ const Register = () => {
                 <Button
                   type="button"
                   name="Google"
-                  className="w-[100%] "
+                  className="w-[100%]"
                   isbtnSocial={true}
                   urlImage="/google.png"
                   onClick={handleSignWithGoogle}
