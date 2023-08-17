@@ -1,8 +1,9 @@
+import instance from "@/config/axios";
 import { useAuthContext } from "@/context/authContext";
+import { useEffect } from "react";
 
 const Home = () => {
   const { user, handleLogout } = useAuthContext();
-
   return (
     <div>
       <div className="user">
