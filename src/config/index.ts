@@ -7,4 +7,6 @@ export const {
   VITE_APP_APPID,
   VITE_APP_MEASUREMENTID,
   VITE_APP_ACCESSTOKEN_KEY,
+  VITE_APP_URL,
+  VITE_APP_USERINFO_KEY,
 } = import.meta.env;
