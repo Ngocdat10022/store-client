@@ -53,8 +53,6 @@ const AuthContextProvider = ({ children }: IPropsAuthContextProvider) => {
       const result = await signInWithPopup(auth, provider);
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential?.accessToken;
-      console.log("userGoogleAccount", result?.user);
-      console.log("accessTokenGoogleAccount", token);
       const user = result.user;
       setTokenFromStorage(token);
       setUserFromStorage(user);
@@ -70,8 +68,6 @@ const AuthContextProvider = ({ children }: IPropsAuthContextProvider) => {
       const result = await signInWithPopup(auth, provider);
       const credential = FacebookAuthProvider.credentialFromResult(result);
       const accessToken = credential?.accessToken;
-      console.log("userFacebookAccount", result?.user);
-      console.log("accessTokenFacebookAccount", accessToken);
       setUserFromStorage(result?.user);
       setTokenFromStorage(accessToken);
     } catch (error) {
