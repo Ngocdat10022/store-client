@@ -3,7 +3,7 @@ import FieldInput from "@/component/FieldInput";
 import { useAuthContext } from "@/context/authContext";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { IFormLogin, IFormRegister } from "@/interface";
+import { IFormLogin } from "@/interface";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaLogin } from "@/schema";
