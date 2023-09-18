@@ -6,11 +6,12 @@ export default {
     colors: {
       whiteColor: "#fff",
       mainColor: "#5ec9ff",
-      greyColor: "#f9f9f9",
+      greyColor: "#434544",
       blueColor: "#0055aa",
       blackColor: "#000",
       primary: "#ff0000",
       footer: "#1c2632",
+      lightGrey: "#f9f9f9",
     },
     extend: {},
   },

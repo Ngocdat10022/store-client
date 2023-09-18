@@ -9,7 +9,7 @@ import { IFormRegister } from "@/interface";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaRegister } from "@/schema";
-import { requestAuthRegister } from "@/service/api";
+import { requestAuthRegister } from "@/service/auth";
 
 const Register = () => {
   const { handleSignWithGoogle, handleSignWithFacebook, accessToken, loading } =

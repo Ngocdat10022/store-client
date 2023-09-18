@@ -4,3 +4,6 @@ export * from "./formRegister.interface";
 export * from "./formLogin.interface";
 export * from "./nav.interface";
 export * from "./className.interface";
+export * from "./product.interface";
+export * from "./productContext.interface";
+export * from "./iPropsProduct.interface";
