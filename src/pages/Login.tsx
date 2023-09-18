@@ -7,7 +7,7 @@ import { IFormLogin } from "@/interface";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaLogin } from "@/schema";
-import { requestAuthLogin } from "@/service/api";
+import { requestAuthLogin } from "@/service/auth";
 import { toast } from "react-toastify";
 const Login = () => {
   const {
@@ -15,6 +15,7 @@ const Login = () => {
     handleSignWithFacebook,
     accessToken,
     setAccessToken,
+    setTokenFromStorage,
     setUser,
     setUserFromStorage,
   } = useAuthContext();
@@ -35,12 +36,15 @@ const Login = () => {
     try {
       const res = await requestAuthLogin(values);
       const data = res?.data;
+      console.log("data", data);
       if (data) {
-        const accessToken = data?.data.accessToken;
-        const user = data?.data.findUser;
+        const accessToken = data?.accessToken;
+        const user = data?.findUser;
+        setTokenFromStorage(accessToken);
         setAccessToken(accessToken);
         setUser(user);
         setUserFromStorage(user);
+        toast.success("Login successfully");
         navigate("/");
       }
     } catch (error: any) {

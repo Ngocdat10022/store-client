@@ -1,3 +1,2 @@
-export const test = () => {
-  return "";
-};
+export * from "./auth";
+export * from "./product";

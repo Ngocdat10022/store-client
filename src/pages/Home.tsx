@@ -10,6 +10,7 @@ import Section from "@/component/Section";
 import Product from "@/component/Product";
 import SectionTitle from "@/component/SectionTitle";
 import CategoryItem from "@/component/Category";
+import { useProductContext } from "@/context/productContext";
 
 const Product_Tshirt = [
   {
@@ -34,6 +35,7 @@ const Product_Tshirt = [
   },
 ];
 const Home = () => {
+  const { products } = useProductContext();
   return (
     <div>
       <DefaultLayout>
@@ -78,14 +80,28 @@ const Home = () => {
         </Section>
         <Section className="pt-14 ">
           <Grid col="4" gap="4" row="4">
-            <Product />
-            <Product />
-            <Product />
-            <Product />
-            <Product />
-            <Product />
-            <Product />
-            <Product />
+            {products.map((product) => {
+              const {
+                discount_percentage,
+                discounted_price,
+                id,
+                imageUrl,
+                initial_price,
+                name,
+                slug,
+              } = product;
+              return (
+                <Product
+                  key={id}
+                  slug={slug}
+                  ulrImage={imageUrl}
+                  title={name}
+                  initialPrice={initial_price}
+                  discountedPrice={discounted_price}
+                  discountPercentage={discount_percentage}
+                />
+              );
+            })}
           </Grid>
           <div className="flex items-center justify-center mt-8">
             <button className="w-[150px] text-lg text-whiteColor h-[50px] rounded-lg bg-mainColor">
@@ -99,12 +115,30 @@ const Home = () => {
             subTitle="Danh mục được nhiều khách hàng yêu thích"
           />
           <Grid className="pt-14" col="3" gap="4">
-            <CategoryItem url="	https://theme.hstatic.net/200000305259/1001044366/14/banner_index_1.jpg?v=30" />
-            <CategoryItem url="https://theme.hstatic.net/200000305259/1001044366/14/banner_index_2.jpg?v=30" />
-            <CategoryItem url="https://theme.hstatic.net/200000305259/1001044366/14/banner_index_3.jpg?v=30" />
-            <CategoryItem url="	https://theme.hstatic.net/200000305259/1001044366/14/banner_index_4.jpg?v=30" />
-            <CategoryItem url="	https://theme.hstatic.net/200000305259/1001044366/14/banner_index_5.jpg?v=30" />
-            <CategoryItem url="https://theme.hstatic.net/200000305259/1001044366/14/banner_index_6.jpg?v=30" />
+            <CategoryItem
+              slug="/collections/t-shirt"
+              url="	https://theme.hstatic.net/200000305259/1001044366/14/banner_index_1.jpg?v=30"
+            />
+            <CategoryItem
+              slug="/collections/shirt"
+              url="https://theme.hstatic.net/200000305259/1001044366/14/banner_index_2.jpg?v=30"
+            />
+            <CategoryItem
+              slug="/collections/sweater"
+              url="https://theme.hstatic.net/200000305259/1001044366/14/banner_index_3.jpg?v=30"
+            />
+            <CategoryItem
+              slug="/collections/hoodies"
+              url="	https://theme.hstatic.net/200000305259/1001044366/14/banner_index_4.jpg?v=30"
+            />
+            <CategoryItem
+              slug="/collections/shorts"
+              url="	https://theme.hstatic.net/200000305259/1001044366/14/banner_index_5.jpg?v=30"
+            />
+            <CategoryItem
+              slug="/collections/perfme"
+              url="https://theme.hstatic.net/200000305259/1001044366/14/banner_index_6.jpg?v=30"
+            />
           </Grid>
         </Section>
         <Section>

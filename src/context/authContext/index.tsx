@@ -1,5 +1,5 @@
 import { VITE_APP_ACCESSTOKEN_KEY, VITE_APP_USERINFO_KEY } from "@/config";
-import { initalStateAuth } from "@/constant";
+import { initalStateAuth } from "@/constant/stateAuth";
 import { auth } from "@/firebase";
 import useLocalStorage from "@/hook/useLocalstorage";
 import { IAuthContext } from "@/interface";
@@ -44,7 +44,7 @@ const AuthContextProvider = ({ children }: IPropsAuthContextProvider) => {
 
   const [user, setUser] = useState<any>(userFromStorage);
   const [accessToken, setAccessToken] = useState<any>(tokenFromStorage);
-  const [loading, setLoading] = useState<boolean>(initalAuthContext.loading);
+  const [loading] = useState<boolean>(initalAuthContext.loading);
 
   // Handle Login with google
   const handleSignWithGoogle = async () => {
